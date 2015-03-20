@@ -88,7 +88,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 alias cls='clear'
 alias ll='ls -l'
-alias la='ls -a'
+alias la='ls -al'
 
 alias vi=vim
 
