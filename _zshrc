@@ -112,5 +112,6 @@ alias tarbz2='tar jcvf'
 alias tarbz2u='tar jxvf'
 
 export GOPATH=/home/clinyong/workfile/go-robot
+export GOROOT=/usr/local/go
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$GOPATH:$PATH

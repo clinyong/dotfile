@@ -16,7 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Bundle 'majutsushi/tagbar'
 "tagbar{{
-let g:tagbar_ctags_bin = "/usr/local/Cellar/ctags/5.8/bin/ctags"
+let g:tagbar_ctags_bin = "/usr/local/bin/ctags"
 nnoremap <silent><C-r> :TagbarToggle<CR>
 
 let g:tagbar_autoclose = 1
@@ -155,6 +155,13 @@ let g:SuperTabDefaultCompletionType = "<c-n>" "按tab键由上往下滚动
 Bundle 'Valloric/YouCompleteMe'
 "YouCompleteMe {{
 "}}
+
+Bundle 'tpope/vim-commentary'
+"vim-commentary {{
+autocmd FileType python,shell set commentstring=#\ %s " 设置Python注释字符
+"}}
+
+Bundle 'tpope/vim-surround'
 
 " All of your Bundles must be added before the following line
 call vundle#end()            " required

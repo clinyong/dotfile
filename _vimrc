@@ -99,6 +99,10 @@ set t_Co=256
 " 5 lines above/below cursor when scrolling
 set scrolloff=5
 
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
+
 "自动检测文件类型并加载相应设置
 filetype plugin indent on
 autocmd FileType python setlocal et sta sw=4 sts=4
