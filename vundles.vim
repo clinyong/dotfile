@@ -14,7 +14,7 @@ Plugin 'gmarik/Vundle.vim'
 
 "vim tools {{
 
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 "tagbar{{
 let g:tagbar_ctags_bin = "/usr/local/bin/ctags"
 nnoremap <silent><C-r> :TagbarToggle<CR>
@@ -23,15 +23,15 @@ let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0
 "}}
 
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
  "NERDTree {{
  nnoremap <silent> <C-t> :exe 'NERDTreeTabsToggle'<CR> 
  let g:nerdtree_tabs_open_on_gui_startup=0
  "}}
  
-Bundle 'jistr/vim-nerdtree-tabs'
-"Bundle 'terryma/vim-multiple-cursors'
-Bundle 'bling/vim-airline'
+Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'terryma/vim-multiple-cursors'
+Plugin 'bling/vim-airline'
 "airline{{
 set laststatus=2
 let g:airline_powerline_fonts=1
@@ -39,7 +39,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "luna"
 "}}
 
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 "ctrlp{{
 noremap <C-W><C-U> :CtrlPMRU<CR>
 nnoremap <C-W>u :CtrlPMRU<CR>
@@ -54,34 +54,36 @@ let g:ctrlp_follow_symlinks=1
 "}}
 
 "平滑滚动
-Bundle 'yonchu/accelerated-smooth-scroll'
+Plugin 'yonchu/accelerated-smooth-scroll'
 
 "}}
 
 "lang{{
 
 "php
-Bundle 'vim-php/tagbar-phpctags.vim'
+Plugin 'vim-php/tagbar-phpctags.vim'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpCtags'
 let g:tagbar_phpctags_memory_limit = '512M'
 "php indent
-Bundle '2072/PHP-Indenting-for-VIm'
+Plugin '2072/PHP-Indenting-for-VIm'
 
 "json
-Bundle 'elzr/vim-json'
+Plugin 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-"js
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'marijnh/tern_for_vim'
+"javascript
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Raimondi/delimitMate'
 
 "js formatting
-"Bundle 'maksimr/vim-jsbeautify'
-"Bundle 'einars/js-beautify'
+"Plugin 'maksimr/vim-jsbeautify'
+"Plugin 'einars/js-beautify'
 "map <leader>ff :call JsBeautify()<cr>
 
 "golang
-Bundle 'fatih/vim-go'
+Plugin 'fatih/vim-go'
 "vim-golang{{
 let g:go_disable_autoinstall = 0 "关闭自动安装依赖包
 let g:go_fmt_autosave = 1
@@ -122,7 +124,7 @@ let g:tagbar_type_go = {
 
 "python
 
-Bundle 'nvie/vim-flake8'
+Plugin 'nvie/vim-flake8'
 "nvie/vim-flake8 {{
 "自动检查python语法
 autocmd BufWritePost *.py call Flake8()
@@ -134,12 +136,13 @@ autocmd BufWritePost *.py call Flake8()
 "code tools{{
 
 "语法检查
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 "syntastic{{
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -147,21 +150,29 @@ let g:syntastic_check_on_wq = 0
 "}}
 
 "auto complete
-Bundle 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 "superTab{{
 let g:SuperTabDefaultCompletionType = "<c-n>" "按tab键由上往下滚动
 "}}
 
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "YouCompleteMe {{
 "}}
 
-Bundle 'tpope/vim-commentary'
+Plugin 'tpope/vim-commentary'
 "vim-commentary {{
 autocmd FileType python,shell set commentstring=#\ %s " 设置Python注释字符
 "}}
 
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
+
+" 代码段 {{
+Plugin 'SirVer/ultisnips'
+
+let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}
 
 " All of your Bundles must be added before the following line
 call vundle#end()            " required
