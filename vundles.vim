@@ -51,6 +51,8 @@ let g:ctrlp_max_height=15
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
+
+Plugin 'rking/ag.vim'
 "}}
 
 "平滑滚动
@@ -71,16 +73,20 @@ Plugin '2072/PHP-Indenting-for-VIm'
 Plugin 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-"javascript
-Plugin 'jelera/vim-javascript-syntax'
+"javascript {{
+" Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'Raimondi/delimitMate'
+
 Plugin 'pangloss/vim-javascript'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Raimondi/delimitMate'
+Plugin 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
 
 "js formatting
 "Plugin 'maksimr/vim-jsbeautify'
 "Plugin 'einars/js-beautify'
 "map <leader>ff :call JsBeautify()<cr>
+" }}
 
 "golang
 Plugin 'fatih/vim-go'
@@ -142,7 +148,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_javascript_checkers = ['jshint']
+" let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
