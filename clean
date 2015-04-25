@@ -4,6 +4,8 @@ for file in $(ls)
 do
 	if [[ $file =~ ^_ ]];then
 		dotfile=$(echo "$file" | tr '_' '.')
-		rm $dotfile
+		rm ~/$dotfile
 	fi
 done
+
+rm ~/.vim/vundles.vim
