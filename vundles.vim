@@ -14,6 +14,10 @@ Plugin 'gmarik/Vundle.vim'
 
 "vim tools {{
 
+" close other buffers
+" :BufOnly without an argument will unload all buffers but the current one.
+Plugin 'vim-scripts/BufOnly.vim'
+
 Plugin 'majutsushi/tagbar'
 "tagbar{{
 let g:tagbar_ctags_bin = "/usr/local/bin/ctags"
