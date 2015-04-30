@@ -10,8 +10,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-eval "$(fasd --init auto)"
-
 # Customize to your needs...
 
 alias cls='clear'
@@ -47,4 +45,3 @@ alias tarbz2u='tar jxvf'
 export GOPATH=/home/clinyong/workfile/go-robot
 export GOROOT=/usr/local/go
 export GOBIN=$GOPATH/bin
-export PATH=$GOBIN:$GOPATH:$PATH
