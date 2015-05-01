@@ -92,7 +92,14 @@ let g:vim_json_syntax_conceal = 0
 " Plugin 'nathanaelkane/vim-indent-guides'
 " Plugin 'Raimondi/delimitMate'
 
+" Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'pangloss/vim-javascript'
+
+" Syntax file for JavaScript libraries. Like AngularJS, JQuery...
+Plugin 'othree/javascript-libraries-syntax.vim'
+let g:used_javascript_libs = 'angularjs'
+
+" ReactJS
 Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
@@ -162,9 +169,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0

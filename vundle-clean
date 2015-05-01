@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# 解决Vundle插件升级出错，把文件放在插件目录里面，一般是~/.vim/bundle
+
+prefix=$(pwd)
+
+for file in $(ls)
+do
+	cd "$prefix/$file"
+	git checkout .
+	cd "$prefix"
+done
