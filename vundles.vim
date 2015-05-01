@@ -17,6 +17,7 @@ Plugin 'gmarik/Vundle.vim'
 " close other buffers
 " :BufOnly without an argument will unload all buffers but the current one.
 Plugin 'vim-scripts/BufOnly.vim'
+" nnoremap <leader><c-y> :BufOnly<CR>
 
 Plugin 'majutsushi/tagbar'
 "tagbar{{
