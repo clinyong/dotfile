@@ -171,7 +171,7 @@ set statusline+=%*
 
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+" let g:syntastic_html_tidy_ignore_errors=['proprietary attribute "ng-']
 let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
