@@ -256,5 +256,8 @@ vnoremap > >gv
 
 " select block
 nnoremap <leader>v V`}
+
+" 快速编辑vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" 快速生效vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
