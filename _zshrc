@@ -13,7 +13,7 @@ fi
 # Customize to your needs...
 
 alias cls='clear'
-alias ll='ls -l'
+alias ll='ls -hl'
 alias la='ls -al'
 
 alias vi=vim
