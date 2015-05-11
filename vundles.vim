@@ -77,6 +77,15 @@ Plugin 'yonchu/accelerated-smooth-scroll'
 
 "lang{{
 
+"html
+" default trigger is <c-y>,
+Plugin 'mattn/emmet-vim'
+" enable emmet only in vim insert mode, other options is n, v
+let g:user_emmet_mode='i'
+" enable emmet only in html and css file
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
 "php
 Plugin 'vim-php/tagbar-phpctags.vim'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpCtags'

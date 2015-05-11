@@ -15,9 +15,6 @@ set nocompatible
 "文件修改之后自动载入
 set autoread
 
-"00x增减数字时使用十进制
-set nrformats= 
-
 "在insert模式下用退格键删除
 set bs=2 
 
@@ -26,18 +23,6 @@ set history=200
 
 "去掉输入错误的提示声音
 set noerrorbells         " don't beep
-set t_vb=
-
-"create undo file
-set undolevels=1000         " How many undos
-set undoreload=10000        " number of lines to save for undo
-if v:version >= 730
-    set undofile                " keep a persistent backup file
-    set undodir=/tmp/vimundo/
-endif
-
-"auto reload
-autocmd! bufwritepost .vimrc source ~/.vimrc " auto reload vimrc when editing it
 
 set completeopt-=preview "自动补全时不出现顶部的preview窗口
 
@@ -92,9 +77,6 @@ set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h20
 
 "折叠设置
 set nofoldenable
-
-"tell vim that the terminal has 256 colors
-set t_Co=256
 
 " 5 lines above/below cursor when scrolling
 set scrolloff=5
@@ -206,10 +188,10 @@ nnoremap j gj
 nnoremap gj j
 
 "Smart way to move between windows 分屏窗口移动
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
 
 "Map ; to : and save a million keystrokes
 " ex mode commands made easy 用于快速进入命令行
@@ -230,17 +212,17 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
-noremap <silent><leader><CR> :nohls<CR>
+nnoremap <silent><leader><CR> :nohls<CR>
 
 "用Tab键切换buf
-noremap <S-Tab> :bp<CR>
-noremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
+nnoremap <Tab> :bn<CR>
 
 " y$ -> Y Make Y behave like other capitals
-map Y y$
+nnoremap Y y$
 
 " select all
-map <C-a> ggVG
+nnoremap <C-a> ggVG
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -261,3 +243,11 @@ nnoremap <leader>v V`}
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 快速生效vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+"==========================================
+" Abbreviations Settings  自定义缩写
+"==========================================
+"
+
+autocmd FileType python     :iabbrev <buffer> iff if:<left>
+autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
