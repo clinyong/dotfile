@@ -14,7 +14,7 @@ fi
 
 alias cls='clear'
 alias ll='ls -hl'
-alias la='ls -al'
+alias la='ls -ahl'
 
 alias vi=vim
 

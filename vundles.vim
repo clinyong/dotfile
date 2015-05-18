@@ -128,6 +128,13 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
+" set current directory as GOPATH
+if !empty(glob("src"))
+    let $GOPATH=getcwd()
+    let $GOBIN=getcwd() . "/bin"
+    let $PATH=$GOBIN . ":" . $PATH
+endif
+
 "golang for tagbar
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
