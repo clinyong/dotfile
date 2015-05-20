@@ -114,9 +114,11 @@ Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
 "js formatting
-"Plugin 'maksimr/vim-jsbeautify'
-"Plugin 'einars/js-beautify'
-"map <leader>ff :call JsBeautify()<cr>
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
+autocmd FileType javascript nnoremap <buffer>  <leader><c-f> :call JsBeautify()<cr>
+autocmd FileType html nnoremap <buffer>  <leader><c-f> :call HtmlBeautify()<cr>
+autocmd FileType css nnoremap <buffer>  <leader><c-f> :call CSSBeautify()<cr>
 " }}
 
 "golang

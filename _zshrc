@@ -44,7 +44,11 @@ alias tarbz2u='tar jxvf'
 
 export GOPATH=/home/clinyong/workfile/go-robot
 export GOROOT=/usr/local/go
+export PATH="$GOPATH/bin:$PATH"
 
 # system default editor
 export EDITOR="vim"
 export VISUAL="vim"
+
+# tmux setting
+export tmux="tmux -2"

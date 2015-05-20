@@ -249,6 +249,8 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 快速生效vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" js/html/css formatter
+
 "==========================================
 " Abbreviations Settings  自定义缩写
 "==========================================
