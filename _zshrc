@@ -56,7 +56,7 @@ export tmux="tmux -2"
 # useful functions
 
 # gopath init
-function goinit() {
+function gopwd() {
 	mkdir -p src bin pkg
 	export GOPATH=$PWD
 }
