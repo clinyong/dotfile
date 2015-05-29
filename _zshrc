@@ -52,3 +52,12 @@ export VISUAL="vim"
 
 # tmux setting
 export tmux="tmux -2"
+
+# useful functions
+
+# gopath init
+function goinit() {
+	mkdir -p src bin pkg
+	export GOPATH=$PWD
+}
+
