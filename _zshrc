@@ -14,7 +14,7 @@ fi
 
 alias cls='clear'
 alias ll='ls -hl'
-alias la='ls -al'
+alias la='ls -ahl'
 
 alias vi=vim
 
@@ -42,8 +42,23 @@ alias targzu='tar zxvf'
 alias tarbz2='tar jcvf'
 alias tarbz2u='tar jxvf'
 
+export GOPATH=/home/clinyong/workfile/go-robot
+export GOROOT=/usr/local/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
 # system default editor
 export EDITOR="vim"
 export VISUAL="vim"
+
+# tmux setting
+export tmux="tmux -2"
+
+# useful functions
+
+# gopath init
+function gopwd() {
+	mkdir -p src bin pkg
+	export GOPATH=$PWD
+}
 
 source ".zshrc.custom"

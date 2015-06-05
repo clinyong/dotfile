@@ -81,7 +81,7 @@ Plugin 'yonchu/accelerated-smooth-scroll'
 " default trigger is <c-y>,
 Plugin 'mattn/emmet-vim'
 " enable emmet only in vim insert mode, other options is n, v
-let g:user_emmet_mode='i'
+let g:user_emmet_mode='n'
 " enable emmet only in html and css file
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
@@ -114,9 +114,11 @@ Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
 "js formatting
-"Plugin 'maksimr/vim-jsbeautify'
-"Plugin 'einars/js-beautify'
-"map <leader>ff :call JsBeautify()<cr>
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
+autocmd FileType javascript nnoremap <buffer>  <leader><c-f> :call JsBeautify()<cr>
+autocmd FileType html nnoremap <buffer>  <leader><c-f> :call HtmlBeautify()<cr>
+autocmd FileType css nnoremap <buffer>  <leader><c-f> :call CSSBeautify()<cr>
 " }}
 
 "golang
@@ -127,6 +129,13 @@ let g:go_fmt_autosave = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+
+" set current directory as GOPATH
+if !empty(glob("src"))
+    let $GOPATH=getcwd()
+    let $GOBIN=getcwd() . "/bin"
+    let $PATH=$GOBIN . ":" . $PATH
+endif
 
 "golang for tagbar
 let g:tagbar_type_go = {

@@ -214,9 +214,14 @@ nnoremap <silent> g* g*zz
 " 去掉搜索高亮
 nnoremap <silent><leader><CR> :nohls<CR>
 
-"用Tab键切换buf
+" 用Tab键切换buf
 nnoremap <S-Tab> :bp<CR>
 nnoremap <Tab> :bn<CR>
+
+" 用leader-c-w关闭buffer
+nnoremap <leader><c-w> :bd<CR>
+" 用leader-c-w关闭buffer
+nnoremap <leader><c-o> :BufOnly<CR>
 
 " y$ -> Y Make Y behave like other capitals
 nnoremap Y y$
@@ -243,6 +248,8 @@ nnoremap <leader>v V`}
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 快速生效vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" js/html/css formatter
 
 "==========================================
 " Abbreviations Settings  自定义缩写
