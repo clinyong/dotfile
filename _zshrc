@@ -57,4 +57,4 @@ function gopwd() {
 	export GOPATH=$PWD
 }
 
-source ".zshrc.custom"
+source "$HOME/.zshrc.custom"
