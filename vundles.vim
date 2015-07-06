@@ -216,6 +216,10 @@ autocmd FileType python,shell set commentstring=#\ %s " 设置Python注释字符
 "}}
 
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+" vim-repeat {{
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+" }}
 
 " 代码段 {{
 Plugin 'SirVer/ultisnips'
