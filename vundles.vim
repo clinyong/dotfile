@@ -119,6 +119,10 @@ Plugin 'einars/js-beautify'
 autocmd FileType javascript nnoremap <buffer>  <leader><c-f> :call JsBeautify()<cr>
 autocmd FileType html nnoremap <buffer>  <leader><c-f> :call HtmlBeautify()<cr>
 autocmd FileType css nnoremap <buffer>  <leader><c-f> :call CSSBeautify()<cr>
+
+" js tag
+Plugin 'marijnh/tern_for_vim'
+
 " }}
 
 "golang
