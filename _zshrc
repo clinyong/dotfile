@@ -31,7 +31,8 @@ alias gc='git commit'
 alias gffs='git flow feature start'
 
 # http proxy alias
-alias proxy='http_proxy=127.0.0.1:8118'
+# alias proxy='http_proxy=127.0.0.1:8118'
+alias proxy='http_proxy=hx.gy:1080'
 
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
