@@ -39,7 +39,7 @@ set hidden
 
 "主题
 set t_Co=256
-colorscheme zenburn
+" colorscheme zenburn
 let g:rehash256 = 1
 
 "display line number

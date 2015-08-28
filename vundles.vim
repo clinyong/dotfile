@@ -136,6 +136,12 @@ let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
 let g:go_bin_path = expand("~/.gotools")
 
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>i <Plug>(go-install)
+au FileType go nmap <Leader>db <Plug>(go-def)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+"}}
+
 " set current directory as GOPATH
 if !empty(glob("src"))
     let $GOPATH=getcwd()
@@ -171,8 +177,6 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
-
-"}}
 
 "python
 
@@ -225,6 +229,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " vim-repeat {{
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+" }}
+
+" vim-colorschemes {{
+Plugin 'flazz/vim-colorschemes'
+colorscheme jellybeans
 " }}
 
 " 代码段 {{
