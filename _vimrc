@@ -66,6 +66,7 @@ set smartcase "有一个或以上大写字母时仍大小写敏感
 set autoindent "自动缩进
 set smartindent "智能缩进
 set cindent "c风格缩进
+set indentkeys-=<:> " 按:不缩进
 
 set tabstop=4 "设置Tab键的宽度 [等同的空格个数]
 set shiftwidth=4 "每一次缩进对应的空格数

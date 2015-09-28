@@ -33,9 +33,9 @@ alias gc='git commit'
 alias gffs='git flow feature start'
 
 # http proxy alias
-alias oneproxy='http_proxy=127.0.0.1:8124'
-alias httpproxy='export http_proxy=http://127.0.0.1:8124'
-alias httpsproxy='export https_proxy=http://127.0.0.1:8124'
+# alias oneproxy='http_proxy=127.0.0.1:8124'
+# alias httpproxy='export http_proxy=http://127.0.0.1:8124'
+# alias httpsproxy='export https_proxy=http://127.0.0.1:8124'
 
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
@@ -67,8 +67,5 @@ function gopwd() {
 	export GOPATH=$PWD
 	export PATH="$GOPATH/bin:$PATH"
 }
-
-export http_proxy='http://127.0.0.1:8124'
-export https_proxy='http://127.0.0.1:8124'
 
 source "$HOME/.zshrc.custom"
