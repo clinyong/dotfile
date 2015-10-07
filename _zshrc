@@ -41,10 +41,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH="/usr/local/bin:$PATH"
 
-export GOROOT="/home/clinyong/.bin/go15"
-export GOBIN="$GOROOT/bin"
-export PATH="$GOBIN:$PATH"
-
 # press format alias
 alias targz='tar zcvf'
 alias targzu='tar zxvf'
