@@ -42,8 +42,8 @@ export LANG=en_US.UTF-8
 export PATH="/usr/local/bin:$PATH"
 
 export GOROOT="/home/clinyong/.bin/go15"
-export GOBIN="$GOROOT/bin"
-export PATH="$GOBIN:$PATH"
+export GOBIN=""
+export PATH="$GOROOT/bin:$PATH"
 
 # press format alias
 alias targz='tar zcvf'
@@ -61,11 +61,22 @@ export tmux="tmux -2"
 
 # useful functions
 
-# gopath init
+# set gopath in current dir
 function gopwd() {
 	mkdir -p src bin pkg
 	export GOPATH=$PWD
-	export PATH="$GOPATH/bin:$PATH"
+	# export PATH="$GOPATH/bin:$PATH"
+}
+
+# go work area init
+function goinit() {
+	git clone https://gitcafe.com/lan-init/go.git goinit
+	mv goinit/Makefile .
+	mv goinit/_fswatch.json .fswatch.json
+	mv goinit/_gitignore .gitignore
+	make init
+	rm -rf goinit
+	gopwd
 }
 
 source "$HOME/.zshrc.custom"
