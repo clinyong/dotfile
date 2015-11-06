@@ -26,6 +26,7 @@ alias ge='emacsclient -c'
 
 # git alias
 alias gss='git status -s'
+alias gdf='git diff'
 alias gp='git push'
 alias gl='git pull'
 alias gco='git checkout'
@@ -71,6 +72,8 @@ function goinit() {
 	mv goinit/_fswatch.json .fswatch.json
 	mv goinit/_gitignore .gitignore
 	make init
+	mkdir conf
+	touch src/main/main.go
 	rm -rf goinit
 	gopwd
 }
