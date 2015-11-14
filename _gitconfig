@@ -1,3 +1,5 @@
 [user]
 	email = clinyong@gmail.com
 	name = clinyong
+[core]
+	excludesfile = /Users/Leo/.gitignore
