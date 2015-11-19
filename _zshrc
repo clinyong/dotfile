@@ -38,16 +38,18 @@ alias gffs='git flow feature start'
 # alias httpproxy='export http_proxy=http://127.0.0.1:8124'
 # alias httpsproxy='export https_proxy=http://127.0.0.1:8124'
 
-export LC_ALL=en_US.UTF-8  
-export LANG=en_US.UTF-8
-export PATH="/usr/local/bin:$PATH"
-
 # press format alias
 alias targz='tar zcvf'
 alias targzu='tar zxvf'
-
 alias tarbz2='tar jcvf'
 alias tarbz2u='tar jxvf'
+
+# js alias
+alias jsformat = 'standard --format'
+
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+export PATH="/usr/local/bin:$PATH"
 
 # system default editor
 export EDITOR="vim"
