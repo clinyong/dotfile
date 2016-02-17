@@ -68,10 +68,12 @@ set smartindent "智能缩进
 set cindent "c风格缩进
 set indentkeys-=<:> " 按:不缩进
 
+set expandtab " 将tab转为空格
 set tabstop=4 "设置Tab键的宽度 [等同的空格个数]
 set shiftwidth=4 "每一次缩进对应的空格数
 set softtabstop=4 "按退格键时可以一次删掉 4 个空格
 
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 
 syntax enable "syntax hightlight
 set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h20

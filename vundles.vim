@@ -44,7 +44,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "luna"
 "}}
 
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 "ctrlp{{
 noremap <C-W><C-U> :CtrlPMRU<CR>
 nnoremap <C-W>u :CtrlPMRU<CR>
@@ -81,10 +82,11 @@ Plugin 'yonchu/accelerated-smooth-scroll'
 " default trigger is <c-y>,
 Plugin 'mattn/emmet-vim'
 " enable emmet only in vim insert mode, other options is n, v
-let g:user_emmet_mode='n'
+let g:user_emmet_mode='i'
+let g:user_emmet_leader_key='<C-E>'
 " enable emmet only in html and css file
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
 
 "php
 Plugin 'vim-php/tagbar-phpctags.vim'
@@ -105,10 +107,6 @@ let g:vim_json_syntax_conceal = 0
 " Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'pangloss/vim-javascript'
 
-" Syntax file for JavaScript libraries. Like AngularJS, JQuery...
-Plugin 'othree/javascript-libraries-syntax.vim'
-let g:used_javascript_libs = 'angularjs'
-
 " ReactJS
 Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
@@ -121,8 +119,17 @@ autocmd FileType html nnoremap <buffer>  <leader><c-f> :call HtmlBeautify()<cr>
 autocmd FileType css nnoremap <buffer>  <leader><c-f> :call CSSBeautify()<cr>
 
 " js tag
-Plugin 'marijnh/tern_for_vim'
+Plugin 'ternjs/tern_for_vim'
 
+" }}
+
+" css {{
+Plugin 'hail2u/vim-css3-syntax'
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
 " }}
 
 "golang
@@ -191,6 +198,9 @@ autocmd BufWritePost *.py call Flake8()
 
 "code tools{{
 
+" 单行与多行转换
+Plugin 'AndrewRadev/splitjoin.vim'
+
 "语法检查
 Plugin 'scrooloose/syntastic'
 "syntastic{{
@@ -202,6 +212,7 @@ let g:syntastic_javascript_checkers = ['standard']
 " standard format for js 
 " autocmd bufwritepost *.js silent !standard % --format
 " autocmd bufwritepost *.jsx silent !standard % --format
+" set autoread
 
 let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_html_tidy_ignore_errors=['proprietary attribute "ng-']
