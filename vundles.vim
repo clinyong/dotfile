@@ -35,8 +35,8 @@ Plugin 'scrooloose/nerdtree'
  "}}
  
 Plugin 'jistr/vim-nerdtree-tabs'
-"Plugin 'terryma/vim-multiple-cursors'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "airline{{
 set laststatus=2
 let g:airline_powerline_fonts=1
