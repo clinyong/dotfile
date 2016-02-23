@@ -144,7 +144,7 @@ let g:go_fmt_command = "goimports"
 let g:go_bin_path = expand("~/.gotools")
 
 " Using with Syntastic
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 au FileType go nmap <leader>b <Plug>(go-build)
