@@ -141,12 +141,10 @@ noremap <F1> <Esc>"
 
 ""为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
+  if(&number) 
+    set nonumber
   else
-    set relativenumber!
+    set number
   endif
   set number?
 endfunc
