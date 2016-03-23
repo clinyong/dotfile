@@ -144,7 +144,7 @@ let g:go_fmt_command = "goimports"
 let g:go_bin_path = expand("~/.gotools")
 
 " Using with Syntastic
-let g:syntastic_go_checkers = ['govet', 'errcheck']
+let g:syntastic_go_checkers = ['errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 au FileType go nmap <leader>b <Plug>(go-build)
@@ -212,7 +212,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_checkers = []
 " standard format for js 
 " autocmd bufwritepost *.js silent !standard % --format
 " autocmd bufwritepost *.jsx silent !standard % --format
