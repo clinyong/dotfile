@@ -120,4 +120,4 @@ eval "$(starship init zsh)"
 
 alias j='z'
 
-bindkey "^?" backward-delete-char
+[[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"
