@@ -101,6 +101,11 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
   source ${ZIM_HOME}/zimfw.zsh init
 fi
+
+ZIM_COMPLETION_FIXED=1
+export _ZL_NO_COMPLETIONS=1
+export _ZL_ZSH_NO_FZF=1
+
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 # }}} End configuration added by Zim Framework install

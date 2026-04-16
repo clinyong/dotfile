@@ -36,7 +36,7 @@ zmodule asciiship
 #
 
 # Fast directory jump with auto-learning, similar to z.sh and autojump.
-zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced once)"'
+zmodule skywind3000/z.lua
 
 #
 # Completion
