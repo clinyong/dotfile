@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# pi-web-up — start pi-web web and session daemons in the user session.
+set -euo pipefail
+
+LOG_DIR="$HOME/.pi-web/logs"
+WEB_LOG="$LOG_DIR/web-direct.log"
+SESSIOND_LOG="$LOG_DIR/sessiond-direct.log"
+WEB_PID_FILE="$HOME/.pi-web/daemon.pid"
+SESSIOND_PID_FILE="$HOME/.pi-web/sessiond.pid"
+WEB_BIN="$(command -v pi-web-server || echo /usr/local/bin/pi-web-server)"
+SESSIOND_BIN="$(command -v pi-web-sessiond || echo /usr/local/bin/pi-web-sessiond)"
+LAUNCHD_DOMAIN="gui/$(id -u)"
+
+mkdir -p "$LOG_DIR"
+
+stop_launch_agent() {
+  local label="$1"
+  if launchctl print "$LAUNCHD_DOMAIN/$label" >/dev/null 2>&1; then
+    state=$(launchctl print "$LAUNCHD_DOMAIN/$label" 2>/dev/null | awk -F'= ' '/state /{print $2; exit}')
+    if [[ "$state" == "running" ]]; then
+      echo "→ Stopping launchctl agent ($label)..."
+      launchctl bootout "$LAUNCHD_DOMAIN/$label" 2>&1 || true
+    fi
+  fi
+}
+
+running_pid_from_file() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    local pid
+    pid=$(cat "$file" 2>/dev/null || true)
+    if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+      printf '%s' "$pid"
+      return
+    fi
+    rm -f "$file"
+  fi
+}
+
+# Do not leave launchctl-managed copies competing with direct processes.
+stop_launch_agent "com.pi-web.web"
+stop_launch_agent "com.pi-web.sessiond"
+
+web_pid=$(running_pid_from_file "$WEB_PID_FILE")
+sessiond_pid=$(running_pid_from_file "$SESSIOND_PID_FILE")
+
+# Adopt an existing direct sessiond started before this wrapper managed it.
+if [[ -z "$sessiond_pid" ]] && command -v pgrep >/dev/null 2>&1; then
+  sessiond_pid=$(pgrep -f '/pi-web-sessiond$' 2>/dev/null | head -1 || true)
+  [[ -n "$sessiond_pid" ]] && echo "$sessiond_pid" > "$SESSIOND_PID_FILE"
+fi
+
+# Refuse a new web process if another process owns its TCP port.
+if [[ -z "$web_pid" ]] && command -v lsof >/dev/null 2>&1; then
+  port_pids=$(lsof -nP -iTCP:8504 -sTCP:LISTEN -t 2>/dev/null || true)
+  if [[ -n "$port_pids" ]]; then
+    echo "Port 8504 is already in use by PID(s): $port_pids" >&2
+    echo "Run pi-web-down first, or stop whatever is holding 8504." >&2
+    exit 1
+  fi
+fi
+
+# Start sessiond before Web so the API is usable as soon as Web binds.
+if [[ -z "$sessiond_pid" ]]; then
+  rm -f "$HOME/.pi-web/sessiond.sock"
+  nohup "$SESSIOND_BIN" > "$SESSIOND_LOG" 2>&1 &
+  sessiond_pid=$!
+  sleep 1
+  if ! kill -0 "$sessiond_pid" 2>/dev/null; then
+    echo "Failed to start $SESSIOND_BIN. Tail of $SESSIOND_LOG:" >&2
+    tail -20 "$SESSIOND_LOG" >&2 || true
+    exit 1
+  fi
+  echo "$sessiond_pid" > "$SESSIOND_PID_FILE"
+  echo "Started pi-web-sessiond (PID $sessiond_pid)"
+else
+  echo "Session daemon already running (PID $sessiond_pid)"
+fi
+
+if [[ -n "$web_pid" ]]; then
+  echo "Web daemon already running (PID $web_pid)"
+  exit 0
+fi
+
+nohup "$WEB_BIN" > "$WEB_LOG" 2>&1 &
+web_pid=$!
+sleep 1
+if ! kill -0 "$web_pid" 2>/dev/null; then
+  echo "Failed to start $WEB_BIN. Tail of $WEB_LOG:" >&2
+  tail -20 "$WEB_LOG" >&2 || true
+  exit 1
+fi
+echo "$web_pid" > "$WEB_PID_FILE"
+
+lan_ip=$(ipconfig getifaddr en0 2>/dev/null || true)
+ts_ip=$(ipconfig getifaddr utun4 2>/dev/null || true)
+echo "Started pi-web-server (PID $web_pid)"
+echo "  Local:     http://127.0.0.1:8504"
+[[ -n "$lan_ip" ]] && echo "  LAN:       http://${lan_ip}:8504"
+[[ -n "$ts_ip" ]] && echo "  Tailscale: http://${ts_ip}:8504"
+echo "  Logs:      $WEB_LOG, $SESSIOND_LOG"
+echo "  Status:    pi-web status"
+echo "  Stop:      pi-web stop"

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# pi-web-down — stop directly managed pi-web web and session daemons.
+set -euo pipefail
+
+WEB_PID_FILE="$HOME/.pi-web/daemon.pid"
+SESSIOND_PID_FILE="$HOME/.pi-web/sessiond.pid"
+WEB_PATTERN='/(usr/local/bin|Users/[^/]+/\.local/share/[^/]+/lib/node_modules/.*bin)/pi-web-server$'
+SESSIOND_PATTERN='/(usr/local/bin|Users/[^/]+/\.local/share/[^/]+/lib/node_modules/.*bin)/pi-web-sessiond$'
+
+stop_pid() {
+  local label="$1"
+  local pid="$2"
+  if ! kill -0 "$pid" 2>/dev/null; then
+    return 0
+  fi
+  echo "→ Stopping $label (PID $pid)..."
+  kill -TERM "$pid" 2>/dev/null || true
+  for _ in {1..10}; do
+    sleep 0.5
+    if ! kill -0 "$pid" 2>/dev/null; then
+      return 0
+    fi
+  done
+  echo "Force killing $label..."
+  kill -KILL "$pid" 2>/dev/null || true
+  sleep 0.2
+}
+
+stop_from_file() {
+  local label="$1"
+  local file="$2"
+  if [[ -f "$file" ]]; then
+    pid=$(cat "$file" 2>/dev/null || true)
+    [[ -n "${pid:-}" ]] && stop_pid "$label" "$pid"
+    rm -f "$file"
+  fi
+}
+
+# Stop Web first so no new work reaches sessiond during its graceful shutdown.
+stop_from_file "pi-web-server" "$WEB_PID_FILE"
+stop_from_file "pi-web-sessiond" "$SESSIOND_PID_FILE"
+
+# Clean up direct instances that predate PID-file management.
+if command -v pkill >/dev/null 2>&1; then
+  pkill -TERM -f "$WEB_PATTERN" 2>/dev/null || true
+  pkill -TERM -f "$SESSIOND_PATTERN" 2>/dev/null || true
+  sleep 1
+  pkill -KILL -f "$WEB_PATTERN" 2>/dev/null || true
+  pkill -KILL -f "$SESSIOND_PATTERN" 2>/dev/null || true
+fi
+rm -f "$HOME/.pi-web/sessiond.sock"
+echo "Stopped"

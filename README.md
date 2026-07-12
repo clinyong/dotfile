@@ -15,6 +15,7 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `.zshrc` | Main zsh configuration |
 | `.zimrc` | Zim module configuration |
 | `setup.sh` | Bootstrap script for new machines |
+| `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
 
 ## Quick Setup on New Machine
 
@@ -52,6 +53,8 @@ brew install z.lua
 # Link configs
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.zimrc ~/.zimrc
+mkdir -p ~/bin
+ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
 
 # Install zim modules
 zimfw install

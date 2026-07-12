@@ -127,3 +127,6 @@ export PATH="/Users/leo/.local/bin:$PATH"
 # Rust / Cargo: make cargo available in new zsh shells.
 export PATH="$HOME/.cargo/bin:$PATH"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Local command shims override globally installed commands when needed.
+export PATH="$HOME/bin:$PATH"

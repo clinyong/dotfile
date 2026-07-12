@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# pi-web (shadow) — intercept start/stop/restart/status/logs and route to our
+# direct-launch scripts. All other subcommands pass through to the real
+# /usr/local/bin/pi-web so doctor/version/install/uninstall still work.
+#
+# This shadows the global pi-web because ~/bin comes earlier in PATH.
+
+set -euo pipefail
+
+REAL_PI_WEB="/usr/local/bin/pi-web"
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -h "$SOURCE" ]]; do
+  SOURCE_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$SOURCE_DIR/$SOURCE"
+done
+OUR_BIN="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  start)
+    exec "$OUR_BIN/pi-web-up" "$@"
+    ;;
+  stop)
+    exec "$OUR_BIN/pi-web-down" "$@"
+    ;;
+  restart)
+    "$OUR_BIN/pi-web-down" || true
+    exec "$OUR_BIN/pi-web-up" "$@"
+    ;;
+  status)
+    exec "$OUR_BIN/pi-web-status" "$@"
+    ;;
+  logs)
+    WEB_LOG="$HOME/.pi-web/logs/web-direct.log"
+    SESSIOND_LOG="$HOME/.pi-web/logs/sessiond-direct.log"
+    [[ -f "$SESSIOND_LOG" ]] || SESSIOND_LOG="$HOME/.pi-web/logs/sessiond.log"
+    if [[ ! -f "$WEB_LOG" && ! -f "$SESSIOND_LOG" ]]; then
+      echo "No log file yet. Start the daemons with: pi-web start" >&2
+      exit 1
+    fi
+    echo "→ Tailing Web and sessiond logs (Ctrl-C to exit)..."
+    exec tail -F "$WEB_LOG" "$SESSIOND_LOG"
+    ;;
+  "" | "-h" | "--help" | help)
+    cat <<'EOF'
+pi-web (local shadow)
+
+Usage:
+  pi-web start                  Start Web and session daemons (bypasses launchctl)
+  pi-web stop                   Stop Web and session daemons
+  pi-web restart                Stop then start both daemons
+  pi-web status                 Show daemon, port, socket, and API status
+  pi-web logs                   Tail Web and sessiond logs
+  pi-web <other>                Pass through to /usr/local/bin/pi-web (install/uninstall/doctor/version/...)
+
+Why this shadow exists:
+  The official pi-web CLI uses launchctl to manage the web daemon. On macOS
+  26 (Tahoe), launchctl-launched unsigned Node processes cannot reach LAN
+  targets (EHOSTUNREACH). This wrapper runs pi-web-server in your user GUI
+  session where LAN access works. The launchctl-based plist for the web is
+  disabled; the sessiond plist is left intact.
+EOF
+    ;;
+  *)
+    exec "$REAL_PI_WEB" "$cmd" "$@"
+    ;;
+esac

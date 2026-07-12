@@ -21,6 +21,8 @@ fi
 echo "==> Linking configuration files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
+mkdir -p "$HOME/bin"
+ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 
 echo "==> Installing Zim modules..."
 exec zsh -c 'zimfw install'
