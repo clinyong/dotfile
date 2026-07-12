@@ -121,3 +121,9 @@ eval "$(starship init zsh)"
 alias j='z'
 
 [[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"
+
+export PATH="/Users/leo/.local/bin:$PATH"
+
+# Rust / Cargo: make cargo available in new zsh shells.
+export PATH="$HOME/.cargo/bin:$PATH"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
