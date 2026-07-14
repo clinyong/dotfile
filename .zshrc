@@ -118,6 +118,9 @@ export PATH=/Users/leo/.opencode/bin:$PATH
 
 eval "$(starship init zsh)"
 
+# mise — version manager (replaces fnm + brew node). Must run in interactive shells.
+eval "$(mise activate zsh)"
+
 alias j='z'
 
 [[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"

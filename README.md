@@ -12,7 +12,8 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 
 | File | Description |
 |------|-------------|
-| `.zshrc` | Main zsh configuration |
+| `.zshrc` | Main zsh configuration (interactive shells) |
+| `.zprofile` | Login shell config — PATH and env for login shells |
 | `.zimrc` | Zim module configuration |
 | `setup.sh` | Bootstrap script for new machines |
 | `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
@@ -52,6 +53,7 @@ brew install z.lua
 
 # Link configs
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.zprofile ~/.zprofile
 ln -sf ~/dotfiles/.zimrc ~/.zimrc
 mkdir -p ~/bin
 ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
@@ -59,6 +61,17 @@ ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
 # Install zim modules
 zimfw install
 ```
+
+## Per-machine local config (not in this repo)
+
+Some things intentionally stay **out** of this repo and live on each machine:
+
+- `~/.local.d/init.sh` — sourced by `.zshrc` if present. Put machine-specific
+  extras here (OrbStack/kiro integration, absolute-path aliases, etc.).
+- `~/.zshenv` — secrets and global `export`s, loaded by all zsh invocations
+  (including `zsh -lc`). Keep it to pure `export` only.
+
+Do **not** commit secrets to this repo.
 
 ## Usage
 
