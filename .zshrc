@@ -134,6 +134,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Local command shims override globally installed commands when needed.
 export PATH="$HOME/bin:$PATH"
 
-# git aliases (resolve repo dir via ${0:A:h} so symlinks work)
-DOTFILES_DIR="${0:A:h}"
+# git aliases (resolve repo dir via readlink so symlinks work)
+DOTFILES_DIR="$(dirname "$(readlink "$HOME/.zshrc")")"
 source "$DOTFILES_DIR/git/aliases.sh"
