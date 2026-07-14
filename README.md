@@ -17,6 +17,7 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `.zimrc` | Zim module configuration |
 | `setup.sh` | Bootstrap script for new machines |
 | `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
+| `git/aliases.sh` | Git aliases and helper functions (gss/gp/gco/...) |
 
 ## Quick Setup on New Machine
 
