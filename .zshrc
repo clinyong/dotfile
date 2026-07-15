@@ -127,6 +127,10 @@ alias vim='nvim'
 # Git 和 LazyGit 需要编辑提交信息时使用 Neovim。
 export EDITOR='nvim'
 
+# Safer deletes: `del` moves files to Trash (via /usr/bin/trash) instead of permanent rm.
+alias rm='echo "rm is disabled, use del instead."'
+alias del="trash"
+
 [[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"
 
 export PATH="/Users/leo/.local/bin:$PATH"
