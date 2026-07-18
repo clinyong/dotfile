@@ -37,6 +37,6 @@ mkdir -p "$HOME/.config"
 ln -sfn "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
 echo "==> Installing Zim modules..."
-exec zsh -c 'zimfw install'
+zsh -c 'zimfw install'
 
 echo "==> Setup complete! Restart your terminal or run 'exec zsh'"
