@@ -10,8 +10,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- 2. 基础设置
+-- 全局快捷键前缀
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- 局部快捷键前缀：供特定插件或文件类型使用，避免占用全局快捷键
+vim.g.maplocalleader = ","
+
+-- 默认使用 4 个空格缩进
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 
 -- 3. 加载插件 (auto-import 整个 lua/plugins/ 目录)
 require("lazy").setup("plugins")

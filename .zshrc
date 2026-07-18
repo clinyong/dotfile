@@ -122,6 +122,7 @@ eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 
 alias j='z'
+alias vim='nvim'
 
 [[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"
 
