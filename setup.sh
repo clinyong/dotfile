@@ -7,7 +7,7 @@ echo "==> Installing prerequisites..."
 
 # Install Homebrew packages
 if command -v brew &> /dev/null; then
-    brew install z.lua starship tmux
+    brew install z.lua starship tmux lazygit
 else
     echo "Homebrew not found. Please install Homebrew first: https://brew.sh"
     exit 1
