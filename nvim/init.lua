@@ -23,3 +23,6 @@ vim.opt.softtabstop = 4
 
 -- 3. 加载插件 (auto-import 整个 lua/plugins/ 目录)
 require("lazy").setup("plugins")
+
+-- 4. 自定义快捷键
+require("config.keymaps")
