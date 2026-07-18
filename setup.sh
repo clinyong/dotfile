@@ -24,6 +24,18 @@ ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 
+echo "==> Installing nvim via mise..."
+if command -v mise &>/dev/null; then
+    mise use -g neovim@latest
+    mise install
+else
+    echo "mise 未安装,跳过 neovim 安装(请先安装 mise 以管理 nvim)"
+fi
+
+echo "==> Linking nvim config..."
+mkdir -p "$HOME/.config"
+ln -sfn "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
 echo "==> Installing Zim modules..."
 exec zsh -c 'zimfw install'
 

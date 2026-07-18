@@ -18,6 +18,7 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `setup.sh` | Bootstrap script for new machines |
 | `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
 | `git/aliases.sh` | Git aliases and helper functions (gss/gp/gco/...) |
+| `nvim/` | Neovim config scaffold (lazy.nvim, blank by design) |
 
 ## Quick Setup on New Machine
 
@@ -58,6 +59,10 @@ ln -sf ~/dotfiles/.zprofile ~/.zprofile
 ln -sf ~/dotfiles/.zimrc ~/.zimrc
 mkdir -p ~/bin
 ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
+
+# Install nvim via mise (assumes mise is already installed)
+mise use -g neovim@latest && mise install
+ln -sfn ~/dotfiles/nvim ~/.config/nvim
 
 # Install zim modules
 zimfw install
