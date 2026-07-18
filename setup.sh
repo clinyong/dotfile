@@ -7,7 +7,7 @@ echo "==> Installing prerequisites..."
 
 # Install Homebrew packages
 if command -v brew &> /dev/null; then
-    brew install z.lua starship
+    brew install z.lua starship tmux
 else
     echo "Homebrew not found. Please install Homebrew first: https://brew.sh"
     exit 1
@@ -21,6 +21,7 @@ fi
 echo "==> Linking configuration files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
+ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 

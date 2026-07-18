@@ -124,6 +124,9 @@ eval "$(mise activate zsh)"
 alias j='z'
 alias vim='nvim'
 
+# Git 和 LazyGit 需要编辑提交信息时使用 Neovim。
+export EDITOR='nvim'
+
 [[ -f "$HOME/.local.d/init.sh" ]] && source "$HOME/.local.d/init.sh"
 
 export PATH="/Users/leo/.local/bin:$PATH"
