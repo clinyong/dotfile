@@ -21,6 +21,13 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
+-- 外部修改文件后，在重新聚焦、进入缓冲区或空闲时自动重新读取
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  command = "checktime",
+})
+
 -- 3. 加载插件 (auto-import 整个 lua/plugins/ 目录)
 require("lazy").setup("plugins")
 
