@@ -24,5 +24,5 @@ vim.opt.softtabstop = 4
 -- 3. 加载插件 (auto-import 整个 lua/plugins/ 目录)
 require("lazy").setup("plugins")
 
--- 4. 自定义快捷键
-require("config.keymaps")
+-- 4. 剪贴板：本地走 pbcopy，SSH 下走 OSC52
+require("config.clipboard").setup()
