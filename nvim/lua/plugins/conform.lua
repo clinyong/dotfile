@@ -17,6 +17,7 @@ return {
                 typescript = { "prettier" },
                 python = { "black" },
                 go = { "gofmt" },
+                rust = { "rustfmt" },
             },
         })
     end,
