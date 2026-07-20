@@ -25,6 +25,10 @@ ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 
+echo "==> Linking pi extensions..."
+mkdir -p "$HOME/.pi/agent/extensions"
+ln -sfn "$DOTFILES_DIR/pi/extensions/english-learning-mode.ts" "$HOME/.pi/agent/extensions/english-learning-mode.ts"
+
 echo "==> Installing nvim via mise..."
 if command -v mise &>/dev/null; then
     mise use -g neovim@latest
