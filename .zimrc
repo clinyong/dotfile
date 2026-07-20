@@ -21,15 +21,8 @@ zmodule utility
 # for any caveats.
 
 #
-# Prompt
+# Prompt: 由 starship 接管(.zshrc 里 eval),不再用 Zim 自带 prompt 模块。
 #
-
-# Exposes how long the last command took to run to prompts.
-zmodule duration-info
-# Exposes git repository status information to prompts.
-zmodule git-info
-# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
-zmodule asciiship
 
 #
 # Tools
