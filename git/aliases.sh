@@ -6,7 +6,34 @@
 alias gss='git status -s'
 alias gdf='git diff'
 alias gp='git push'
-alias gl='git pull'
+# gl: smart pull.
+# - 浅克隆仓库: 浅拉当前分支 tip 并对齐(避免 fetch 全量历史).
+#   工作区干净才执行 reset --hard; 有未提交改动则中止, 不会丢数据.
+# - 完整克隆仓库: 普通 git pull, 透传所有参数.
+gl() {
+  if git rev-parse --is-shallow-repository >/dev/null 2>&1; then
+    local ref remote
+    ref=$(git symbolic-ref --short HEAD 2>/dev/null)
+    remote=$(git config "branch.${ref}.remote" 2>/dev/null)
+    if [ -z "$remote" ] || [ -z "$ref" ]; then
+      echo "gl: shallow repo but no upstream branch found, falling back to git pull" >&2
+      git pull "$@"; return $?
+    fi
+    if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+      echo "gl: working tree dirty — commit/stash first, then re-run." >&2
+      return 1
+    fi
+    git fetch --depth=1 "$remote" "$ref" || return $?
+    if [ "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" ]; then
+      echo "gl: already up to date."
+      return 0
+    fi
+    echo "gl: shallow sync → reset --hard to $remote/$ref ($(git rev-parse --short FETCH_HEAD))"
+    git reset --hard FETCH_HEAD
+  else
+    git pull "$@"
+  fi
+}
 alias gco='git checkout'
 alias gc='git commit'
 alias gffs='git flow feature start'
