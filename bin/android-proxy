@@ -1,0 +1,83 @@
+#!/bin/bash
+# Set or clear the Android device's global HTTP proxy to this Mac's Proxyman
+# Usage:
+#   android-proxy          # set proxy to this Mac:8888
+#   android-proxy off      # clear proxy
+#   android-proxy show     # show current proxy
+#   android-proxy 1.2.3.4:9999  # custom proxy
+
+set -e
+
+SERIAL="65151JEA317240"
+PROXYMAN_PORT="8888"
+
+err() { echo "ERROR: $*" >&2; exit 1; }
+
+get_mac_ip() {
+  ifconfig en0 2>/dev/null | awk '/inet /{print $2}' | head -1
+}
+
+check_device() {
+  if ! adb devices 2>/dev/null | grep -v "List of devices" | grep -q "$SERIAL"; then
+    err "Device $SERIAL not connected. Check USB cable or adb."
+  fi
+  case "$(adb -s "$SERIAL" get-state 2>/dev/null)" in
+    device) return 0 ;;
+    offline) err "Device $SERIAL is offline. Reconnect USB or toggle USB debugging." ;;
+    unauthorized) err "Device $SERIAL is unauthorized. Approve the USB debugging dialog on the phone." ;;
+    *) err "Device $SERIAL state unknown. Run 'adb devices' to check." ;;
+  esac
+}
+
+set_proxy() {
+  local proxy="$1"
+  echo "==> Setting proxy to $proxy ..."
+  adb -s "$SERIAL" shell "settings put global http_proxy $proxy" 2>/dev/null
+  local actual
+  actual=$(adb -s "$SERIAL" shell 'settings get global http_proxy' 2>/dev/null | tr -d '\r\n')
+  if [ "$actual" != "$proxy" ]; then
+    err "Failed to set proxy (expected '$proxy', got '$actual')"
+  fi
+  echo "    ✓ Proxy set: $actual"
+}
+
+clear_proxy() {
+  echo "==> Clearing proxy..."
+  adb -s "$SERIAL" shell "settings put global http_proxy :0" 2>/dev/null
+  echo "    ✓ Proxy cleared"
+}
+
+show_proxy() {
+  local proxy
+  proxy=$(adb -s "$SERIAL" shell 'settings get global http_proxy' 2>/dev/null | tr -d '\r\n')
+  if [ -z "$proxy" ] || [ "$proxy" = ":0" ] || [ "$proxy" = "null" ]; then
+    echo "Proxy: none"
+  else
+    echo "Proxy: $proxy"
+  fi
+}
+
+# ── Main ──────────────────────────────────────────────────────────────
+
+check_device
+
+case "${1:-}" in
+  off|clear|none)
+    clear_proxy
+    ;;
+  show|status)
+    show_proxy
+    ;;
+  "")
+    MAC_IP=$(get_mac_ip)
+    [ -z "$MAC_IP" ] && err "Could not determine Mac IP from en0. Is WiFi connected?"
+    set_proxy "$MAC_IP:$PROXYMAN_PORT"
+    ;;
+  *)
+    if [[ "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+      set_proxy "$1"
+    else
+      err "Invalid argument '$1'. Usage: android-proxy [off|show|IP:PORT]"
+    fi
+    ;;
+esac

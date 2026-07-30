@@ -24,6 +24,7 @@ ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
 ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
+ln -sf "$DOTFILES_DIR/bin/android-proxy" "$HOME/bin/android-proxy"
 
 echo "==> Linking pi extensions..."
 mkdir -p "$HOME/.pi/agent/extensions"
