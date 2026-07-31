@@ -145,3 +145,9 @@ export PATH="$HOME/bin:$PATH"
 # git aliases (resolve repo dir via readlink so symlinks work)
 DOTFILES_DIR="$(dirname "$(readlink "$HOME/.zshrc")")"
 source "$DOTFILES_DIR/git/aliases.sh"
+
+# bun completions
+[ -s "/Users/leo/.bun/_bun" ] && source "/Users/leo/.bun/_bun"
+
+# omp (oh-my-pi) completions
+command -v omp >/dev/null 2>&1 && eval "$(omp completions zsh)"
