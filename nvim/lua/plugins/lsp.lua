@@ -31,8 +31,13 @@ return {
       end,
     })
 
-    -- 启用 sourcekit：配置由 nvim-lspconfig 的 lsp/sourcekit.lua 自动提供
-    -- (含 root_dir 检测：*.xcodeproj / *.xcworkspace / Package.swift / .git 等)
+    -- Swift: sourcekit-lsp (Xcode 工具链自带)
     vim.lsp.enable("sourcekit")
+
+    -- TypeScript: typescript-language-server (已通过 brew 安装)
+    vim.lsp.enable("ts_ls")
+
+    -- Rust: rust-analyzer (需先安装: rustup component add rust-analyzer)
+    vim.lsp.enable("rust_analyzer")
   end,
 }
