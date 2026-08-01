@@ -21,9 +21,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
--- 行号：当前行显示绝对行号，其余行显示相对行号 (方便用 5j / 10k 等跳转)
+-- 行号：显示绝对行号
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- 外部修改文件后，在重新聚焦、进入缓冲区或空闲时自动重新读取
 vim.opt.autoread = true
