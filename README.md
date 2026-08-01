@@ -18,7 +18,9 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `setup.sh` | Bootstrap script for new machines |
 | `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
 | `git/aliases.sh` | Git aliases and helper functions (gss/gp/gco/...) |
-| `nvim/` | Neovim config scaffold (lazy.nvim, blank by design) |
+| `ghostty/config` | Ghostty configuration (Kanagawa Dragon) |
+| `nvim/` | Neovim configuration (lazy.nvim, Kanagawa Dragon) |
+| `lazygit/config.yml` | LazyGit configuration and Kanagawa Dragon theme |
 
 ## Quick Setup on New Machine
 
@@ -57,12 +59,18 @@ brew install z.lua
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.zprofile ~/.zprofile
 ln -sf ~/dotfiles/.zimrc ~/.zimrc
+mkdir -p ~/.config/ghostty
+ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 mkdir -p ~/bin
 ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
 
 # Install nvim via mise (assumes mise is already installed)
 mise use -g neovim@latest && mise install
 ln -sfn ~/dotfiles/nvim ~/.config/nvim
+
+# Link LazyGit config (LG_CONFIG_FILE is exported by .zshrc)
+mkdir -p ~/.config/lazygit
+ln -sfn ~/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
 
 # Install zim modules
 zimfw install

@@ -22,6 +22,8 @@ echo "==> Linking configuration files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
 ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
+mkdir -p "$HOME/.config/ghostty"
+ln -sfn "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 ln -sf "$DOTFILES_DIR/bin/android-proxy" "$HOME/bin/android-proxy"
@@ -41,6 +43,10 @@ fi
 echo "==> Linking nvim config..."
 mkdir -p "$HOME/.config"
 ln -sfn "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
+echo "==> Linking lazygit config..."
+mkdir -p "$HOME/.config/lazygit"
+ln -sfn "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 
 echo "==> Installing Zim modules..."
 zsh -c 'zimfw install'

@@ -127,6 +127,9 @@ alias vim='nvim'
 # Git 和 LazyGit 需要编辑提交信息时使用 Neovim。
 export EDITOR='nvim'
 
+# LazyGit config is maintained in dotfiles and linked by setup.sh.
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
+
 # Safer deletes: `del` moves files to Trash (via /usr/bin/trash) instead of permanent rm.
 alias rm='echo "rm is disabled, use del instead."'
 alias del="trash"

@@ -1,0 +1,31 @@
+# Kanagawa Dragon, matching the Ghostty and Neovim themes.
+# Lazygit inherits the terminal background, so the terminal uses Kanagawa Dragon too.
+gui:
+  theme:
+    activeBorderColor:
+      - "#C4B28A" # dragonYellow
+      - bold
+    inactiveBorderColor:
+      - "#625E5A" # dragonBlack6
+    searchingActiveBorderColor:
+      - "#C4746E" # dragonRed
+      - bold
+    optionsTextColor:
+      - "#8EA4A2" # dragonAqua
+    selectedLineBgColor:
+      - "#282727" # dragonBlack4
+    inactiveViewSelectedLineBgColor:
+      - "#393836" # dragonBlack5
+      - bold
+    cherryPickedCommitFgColor:
+      - "#87A987" # dragonGreen
+    cherryPickedCommitBgColor:
+      - "#282727" # dragonBlack4
+    markedBaseCommitFgColor:
+      - "#C4B28A" # dragonYellow
+    markedBaseCommitBgColor:
+      - "#393836" # dragonBlack5
+    unstagedChangesColor:
+      - "#C4746E" # dragonRed
+    defaultFgColor:
+      - "#C5C9C5" # dragonWhite
