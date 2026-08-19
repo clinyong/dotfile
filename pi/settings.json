@@ -1,0 +1,18 @@
+{
+  "theme": "gruvbox-light-hard/gruvbox-dark-medium",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.6-luna",
+  "defaultThinkingLevel": "max",
+  "hideThinkingBlock": false,
+  "shellCommandPrefix": ". \"$HOME/.pi/agent/shell-env.sh\"",
+  "packages": [
+    "npm:pi-hermes-memory@0.9.4",
+    "npm:pi-web-access@0.19.0",
+    "npm:pi-agent-browser-native@0.3.0",
+    "../../my-projects/pi-leo"
+  ],
+  "enabledModels": [
+    "openai-codex/gpt-5.6-luna"
+  ],
+  "lastChangelogVersion": "0.84.2"
+}

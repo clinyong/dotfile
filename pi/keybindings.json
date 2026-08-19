@@ -1,0 +1,4 @@
+{
+  "app.editor.external": "ctrl+alt+g",
+  "tui.altScreen.searchNext": ["enter", "ctrl+alt+n"]
+}

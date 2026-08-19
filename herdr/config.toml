@@ -1,0 +1,19 @@
+onboarding = false
+[ui]
+agent_panel_sort = "spaces"
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[theme.custom]
+surface_dim = "#3c3836"
+
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", { token = "agent", bold = true, dim = false }],
+  [
+    { token = "workspace", dim = true },
+    { token = "tab", dim = true },
+  ],
+]

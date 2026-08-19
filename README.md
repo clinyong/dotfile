@@ -21,7 +21,17 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `ghostty/config` | Ghostty configuration (Gruvbox Light Hard / Dark) |
 | `nvim/` | Neovim configuration (lazy.nvim, Gruvbox Light Hard / Dark) |
 | `lazygit/config.yml` | LazyGit configuration using the Ghostty Gruvbox palette |
+| `herdr/config.toml` | Herdr workspace configuration |
+| `pi/settings.json` | Pi defaults and pinned package sources |
+| `pi/keybindings.json` | Pi keybindings |
+| `pi/shell-env.sh` | Portable environment setup for Pi shell commands |
+| `pi/extensions/` | Pi extensions |
 | `pi/themes/` | Pi Gruvbox Light Hard / Dark Medium themes |
+
+The `pi/extensions/anki-english.ts` extension provides `/anki`, which creates
+Speaking and Typing cards through AnkiConnect. It uses `MY_OPEN_AI` (or
+`OPENAI_API_KEY`) and defaults to local AnkiConnect at `127.0.0.1:8765`; set
+`ANKI_CONNECT_URL` in `~/.zshenv` when the Anki host differs.
 
 ## Quick Setup on New Machine
 
@@ -65,11 +75,20 @@ ln -sfn ~/dotfiles/ghostty/config "$HOME/Library/Application Support/com.mitchel
 mkdir -p ~/bin
 ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
 
-# Link Pi themes (use Automatic in /settings, or set this in ~/.pi/agent/settings.json)
-mkdir -p ~/.pi/agent/themes
+# Link Pi configuration, extensions, and themes
+mkdir -p ~/.pi/agent/extensions ~/.pi/agent/themes
+ln -sfn ~/dotfiles/pi/settings.json ~/.pi/agent/settings.json
+ln -sfn ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
+ln -sfn ~/dotfiles/pi/shell-env.sh ~/.pi/agent/shell-env.sh
+ln -sfn ~/dotfiles/pi/extensions/english-learning-mode.ts ~/.pi/agent/extensions/english-learning-mode.ts
+ln -sfn ~/dotfiles/pi/extensions/anki-english.ts ~/.pi/agent/extensions/anki-english.ts
 ln -sfn ~/dotfiles/pi/themes/gruvbox-light-hard.json ~/.pi/agent/themes/gruvbox-light-hard.json
 ln -sfn ~/dotfiles/pi/themes/gruvbox-dark-medium.json ~/.pi/agent/themes/gruvbox-dark-medium.json
-# "theme": "gruvbox-light-hard/gruvbox-dark-medium"
+
+# Install the pinned Pi packages listed in pi/settings.json
+pi install npm:pi-hermes-memory@0.9.4
+pi install npm:pi-web-access@0.19.0
+pi install npm:pi-agent-browser-native@0.3.0
 
 # Install nvim via mise (assumes mise is already installed)
 mise use -g neovim@latest && mise install
@@ -78,6 +97,10 @@ ln -sfn ~/dotfiles/nvim ~/.config/nvim
 # Link LazyGit config (LG_CONFIG_FILE is exported by .zshrc)
 mkdir -p ~/.config/lazygit
 ln -sfn ~/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
+
+# Link Herdr config
+mkdir -p ~/.config/herdr
+ln -sfn ~/dotfiles/herdr/config.toml ~/.config/herdr/config.toml
 
 # Install zim modules
 zimfw install
@@ -91,6 +114,8 @@ Some things intentionally stay **out** of this repo and live on each machine:
   extras here (OrbStack/kiro integration, absolute-path aliases, etc.).
 - `~/.zshenv` — secrets and global `export`s, loaded by all zsh invocations
   (including `zsh -lc`). Keep it to pure `export` only.
+- `~/.pi/agent/auth.json`, `sessions/`, and Hermes memory data — local/private Pi
+  state; never commit these files.
 
 Do **not** commit secrets to this repo.
 
