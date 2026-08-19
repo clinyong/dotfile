@@ -1,13 +1,14 @@
 #!/bin/bash
 set -e
 
-DOTFILES_DIR="$HOME/dotfiles"
+# Resolve the repository location instead of assuming a fixed clone directory.
+DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "==> Installing prerequisites..."
 
 # Install Homebrew packages
 if command -v brew &> /dev/null; then
-    brew install z.lua starship tmux lazygit
+    brew install mise z.lua starship tmux lazygit
 else
     echo "Homebrew not found. Please install Homebrew first: https://brew.sh"
     exit 1
@@ -20,6 +21,7 @@ fi
 
 echo "==> Linking configuration files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOTFILES_DIR/.zimrc" "$HOME/.zimrc"
 ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 if [[ "$OSTYPE" == darwin* ]]; then
@@ -70,6 +72,6 @@ mkdir -p "$HOME/.config/lazygit"
 ln -sfn "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 
 echo "==> Installing Zim modules..."
-zsh -c 'zimfw install'
+zsh -fc 'ZIM_HOME="$HOME/.zim"; source "$ZIM_HOME/init.zsh"; zimfw install'
 
 echo "==> Setup complete! Restart your terminal or run 'exec zsh'"

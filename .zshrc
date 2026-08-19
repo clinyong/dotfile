@@ -114,7 +114,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
-export PATH=/Users/leo/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 eval "$(starship init zsh)"
 
@@ -150,7 +150,7 @@ DOTFILES_DIR="$(dirname "$(readlink "$HOME/.zshrc")")"
 source "$DOTFILES_DIR/git/aliases.sh"
 
 # bun completions
-[ -s "/Users/leo/.bun/_bun" ] && source "/Users/leo/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # omp (oh-my-pi) completions
 command -v omp >/dev/null 2>&1 && eval "$(omp completions zsh)"
