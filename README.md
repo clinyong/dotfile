@@ -18,9 +18,10 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `setup.sh` | Bootstrap script for new machines |
 | `pi-web/` | Local pi-web wrapper, service scripts, and integration test |
 | `git/aliases.sh` | Git aliases and helper functions (gss/gp/gco/...) |
-| `ghostty/config` | Ghostty configuration (Kanagawa Dragon) |
-| `nvim/` | Neovim configuration (lazy.nvim, Kanagawa Dragon) |
-| `lazygit/config.yml` | LazyGit configuration and Kanagawa Dragon theme |
+| `ghostty/config` | Ghostty configuration (Gruvbox Light Hard / Dark) |
+| `nvim/` | Neovim configuration (lazy.nvim, Gruvbox Light Hard / Dark) |
+| `lazygit/config.yml` | LazyGit configuration using the Ghostty Gruvbox palette |
+| `pi/themes/` | Pi Gruvbox Light Hard / Dark Medium themes |
 
 ## Quick Setup on New Machine
 
@@ -59,10 +60,16 @@ brew install z.lua
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.zprofile ~/.zprofile
 ln -sf ~/dotfiles/.zimrc ~/.zimrc
-mkdir -p ~/.config/ghostty
-ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+ln -sfn ~/dotfiles/ghostty/config "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 mkdir -p ~/bin
 ln -sfn ~/dotfiles/pi-web/pi-web ~/bin/pi-web
+
+# Link Pi themes (use Automatic in /settings, or set this in ~/.pi/agent/settings.json)
+mkdir -p ~/.pi/agent/themes
+ln -sfn ~/dotfiles/pi/themes/gruvbox-light-hard.json ~/.pi/agent/themes/gruvbox-light-hard.json
+ln -sfn ~/dotfiles/pi/themes/gruvbox-dark-medium.json ~/.pi/agent/themes/gruvbox-dark-medium.json
+# "theme": "gruvbox-light-hard/gruvbox-dark-medium"
 
 # Install nvim via mise (assumes mise is already installed)
 mise use -g neovim@latest && mise install
