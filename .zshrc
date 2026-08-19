@@ -113,9 +113,6 @@ source ${ZIM_HOME}/init.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-
 eval "$(starship init zsh)"
 
 # mise — version manager (replaces fnm + brew node). Must run in interactive shells.
