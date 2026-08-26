@@ -8,7 +8,8 @@ echo "==> Installing prerequisites..."
 
 # Install Homebrew packages
 if command -v brew &> /dev/null; then
-    brew install mise z.lua starship tmux lazygit
+    # Neovim's LSP config starts these executables directly.
+    brew install mise z.lua starship tmux lazygit node oxfmt typescript-language-server rust-analyzer
 else
     echo "Homebrew not found. Please install Homebrew first: https://brew.sh"
     exit 1
@@ -34,6 +35,7 @@ ln -sfn "$DOTFILES_DIR/ghostty/config" "$GHOSTTY_CONFIG_DIR/config.ghostty"
 mkdir -p "$HOME/bin"
 ln -sfn "$DOTFILES_DIR/pi-web/pi-web" "$HOME/bin/pi-web"
 ln -sf "$DOTFILES_DIR/bin/android-proxy" "$HOME/bin/android-proxy"
+ln -sf "$DOTFILES_DIR/bin/open_chrome_testing" "$HOME/bin/open_chrome_testing"
 
 echo "==> Linking pi extensions, themes, and configuration..."
 mkdir -p "$HOME/.pi/agent/extensions" "$HOME/.pi/agent/themes"
@@ -56,6 +58,17 @@ fi
 echo "==> Linking nvim config..."
 mkdir -p "$HOME/.config"
 ln -sfn "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
+echo "==> Installing TypeScript runtime for Neovim..."
+if command -v npm &>/dev/null; then
+    # Homebrew's current TypeScript may not ship tsserver.js anymore. Keep a
+    # compatible TypeScript 5 runtime in the location used by lsp.lua.
+    NVIM_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
+    mkdir -p "$NVIM_DATA_DIR/typescript"
+    npm install --prefix "$NVIM_DATA_DIR/typescript" --save-exact --no-audit --no-fund typescript@5.9.3
+else
+    echo "npm 未找到，跳过 TypeScript runtime 安装。请先安装 Node.js。"
+fi
 
 echo "==> Linking lazygit config..."
 mkdir -p "$HOME/.config/lazygit"

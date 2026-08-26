@@ -21,6 +21,11 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
+-- 搜索：默认忽略大小写，但搜索词包含大写字母时区分大小写
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
+
 -- 行号：显示绝对行号
 vim.opt.number = true
 vim.opt.relativenumber = false

@@ -9,6 +9,9 @@ auto_switch = false
 [theme.custom]
 surface_dim = "#3c3836"
 
+[experimental]
+kitty_graphics = true
+
 [ui.sidebar.agents]
 rows = [
   ["state_icon", { token = "agent", bold = true, dim = false }],

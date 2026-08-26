@@ -1,18 +1,22 @@
 {
   "theme": "gruvbox-light-hard/gruvbox-dark-medium",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-luna",
-  "defaultThinkingLevel": "max",
+  "defaultProvider": "antigravity",
+  "defaultModel": "gemini-3.7-flash",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "shellCommandPrefix": ". \"$HOME/.pi/agent/shell-env.sh\"",
   "packages": [
-    "npm:pi-hermes-memory@0.9.4",
+    "npm:pi-hermes-memory@0.9.6",
     "npm:pi-web-access@0.19.0",
-    "npm:pi-agent-browser-native@0.3.0",
-    "../../my-projects/pi-leo"
+    "../../my-projects/pi-leo",
+    "npm:pi-antigravity",
+    "npm:remote-pi@0.7.0",
+    "npm:@dietrichgebert/ponytail"
   ],
   "enabledModels": [
-    "openai-codex/gpt-5.6-luna"
+    "openai-codex/gpt-5.6-luna",
+    "antigravity/gemini-3.7-flash",
+    "openai-codex/gpt-5.6-terra"
   ],
-  "lastChangelogVersion": "0.84.2"
+  "lastChangelogVersion": "0.84.3"
 }

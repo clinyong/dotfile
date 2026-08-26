@@ -63,8 +63,13 @@ curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | 
 # Install Starship
 curl -fsSL https://raw.githubusercontent.com/starship/starship/master/install/install.sh | sh -s -- --yes
 
-# Install z.lua
-brew install z.lua
+# Install z.lua, Neovim language servers, and the Oxfmt formatter
+brew install z.lua node oxfmt typescript-language-server rust-analyzer
+
+# typescript-language-server needs a TypeScript runtime. Keep a TypeScript 5
+# fallback because newer Homebrew TypeScript releases may not ship tsserver.js.
+npm install --prefix "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/typescript" \
+  --save-exact typescript@5.9.3
 
 # Link configs
 ln -sf ~/dotfiles/.zshrc ~/.zshrc

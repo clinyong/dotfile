@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+#
+# open_chrome_testing: Launch an isolated Chrome instance for testing with CDP enabled.
+#
+
+set -euo pipefail
+
+# 1. Locate Chrome binary (prefer Chrome for Testing, fallback to Canary/Dev/Chromium/Stable)
+CANDIDATES=(
+  "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  "$HOME/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+  "/Applications/Google Chrome Dev.app/Contents/MacOS/Google Chrome Dev"
+  "/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta"
+  "/Applications/Chromium.app/Contents/MacOS/Chromium"
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+)
+
+CHROME_BIN=""
+for candidate in "${CANDIDATES[@]}"; do
+  if [[ -x "$candidate" ]]; then
+    CHROME_BIN="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$CHROME_BIN" ]]; then
+  echo "❌ Error: No Chrome or Chromium installation found in /Applications." >&2
+  exit 1
+fi
+
+# 2. Configuration Defaults
+PORT="${CHROME_TEST_PORT:-9222}"
+PROFILE_DIR="${CHROME_TEST_PROFILE:-$HOME/.chrome-testing-profile}"
+FOREGROUND=0
+EXTRA_ARGS=()
+LOAD_EXTENSIONS=()
+
+resolve_path() {
+  local target="$1"
+  if [[ "$target" != /* ]]; then
+    if [[ -d "$target" ]]; then
+      echo "$(cd "$target" && pwd)"
+    else
+      echo "$PWD/$target"
+    fi
+  else
+    echo "$target"
+  fi
+}
+
+# 3. Parse options
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -p|--port)
+      PORT="$2"
+      shift 2
+      ;;
+    --port=*)
+      PORT="${1#*=}"
+      shift
+      ;;
+    --profile)
+      PROFILE_DIR="$(resolve_path "$2")"
+      shift 2
+      ;;
+    --profile=*)
+      PROFILE_DIR="$(resolve_path "${1#*=}")"
+      shift
+      ;;
+    --load-extension)
+      LOAD_EXTENSIONS+=("$(resolve_path "$2")")
+      shift 2
+      ;;
+    --load-extension=*)
+      LOAD_EXTENSIONS+=("$(resolve_path "${1#*=}")")
+      shift
+      ;;
+    --fg|--foreground)
+      FOREGROUND=1
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: open_chrome_testing [options] [url / flags]"
+      echo ""
+      echo "Options:"
+      echo "  -p, --port <port>       CDP remote debugging port (default: 9222)"
+      echo "  --profile <dir>         User data profile directory (default: ~/.chrome-testing-profile)"
+      echo "  --load-extension <path> Load unpacked extension directory"
+      echo "  --fg, --foreground      Run in foreground (keep terminal attached)"
+      echo "  -h, --help              Show this help message"
+      echo ""
+      echo "Examples:"
+      echo "  open_chrome_testing"
+      echo "  open_chrome_testing http://localhost:3000"
+      echo "  open_chrome_testing --load-extension=apps/extension/output/chrome-mv3-dev"
+      echo "  open_chrome_testing -p 9333"
+      exit 0
+      ;;
+    *)
+      EXTRA_ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+mkdir -p "$PROFILE_DIR"
+
+LAUNCH_ARGS=(
+  "--remote-debugging-port=$PORT"
+  "--user-data-dir=$PROFILE_DIR"
+  "--no-first-run"
+  "--no-default-browser-check"
+)
+
+if [[ ${#LOAD_EXTENSIONS[@]} -gt 0 ]]; then
+  joined_extensions=$(IFS=,; echo "${LOAD_EXTENSIONS[*]}")
+  LAUNCH_ARGS+=(
+    "--disable-extensions-except=$joined_extensions"
+    "--load-extension=$joined_extensions"
+  )
+fi
+
+if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
+  LAUNCH_ARGS+=("${EXTRA_ARGS[@]}")
+fi
+
+APP_NAME="$(basename "$(dirname "$(dirname "$(dirname "$CHROME_BIN")")")")"
+
+echo "🚀 Starting $APP_NAME for testing..."
+echo "   📡 CDP endpoint: http://127.0.0.1:$PORT"
+echo "   📁 Data profile: $PROFILE_DIR"
+
+if [[ $FOREGROUND -eq 1 ]]; then
+  exec "$CHROME_BIN" "${LAUNCH_ARGS[@]}"
+else
+  nohup "$CHROME_BIN" "${LAUNCH_ARGS[@]}" > /dev/null 2>&1 &
+  disown
+fi

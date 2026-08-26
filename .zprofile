@@ -13,3 +13,11 @@ fi
 
 # mise: 让非交互登录 shell 也能找到 mise 管理的命令(node/pi 等)
 export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/leo/.local/bin:$PATH"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
