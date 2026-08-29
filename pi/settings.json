@@ -6,17 +6,28 @@
   "hideThinkingBlock": false,
   "shellCommandPrefix": ". \"$HOME/.pi/agent/shell-env.sh\"",
   "packages": [
-    "npm:pi-hermes-memory@0.9.6",
     "npm:pi-web-access@0.19.0",
     "../../my-projects/pi-leo",
     "npm:pi-antigravity",
-    "npm:remote-pi@0.7.0",
-    "npm:@dietrichgebert/ponytail"
+    "npm:@dietrichgebert/ponytail",
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-observational-memory",
+    "npm:pi-memory"
   ],
+  "observational-memory": {
+    "compactAfterTokensMode": "ratio",
+    "compactAfterTokensRatio": 0.68,
+    "model": {
+      "provider": "openai-codex",
+      "id": "gpt-5.6-luna",
+      "thinking": "high"
+    }
+  },
   "enabledModels": [
     "openai-codex/gpt-5.6-luna",
     "antigravity/gemini-3.7-flash",
-    "openai-codex/gpt-5.6-terra"
+    "openai-codex/gpt-5.6-terra",
+    "antigravity/claude-opus-4-6"
   ],
   "lastChangelogVersion": "0.84.3"
 }
