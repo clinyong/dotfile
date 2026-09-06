@@ -1,4 +1,8 @@
 {
   "app.editor.external": "ctrl+alt+g",
-  "tui.altScreen.searchNext": ["enter", "ctrl+alt+n"]
+  "tui.altScreen.searchNext": ["enter", "ctrl+alt+n"],
+  "app.model.cycleForward": [],
+  "app.model.cycleBackward": [],
+  "app.models.toggleProvider": ["alt+p"],
+  "app.session.togglePath": "ctrl+alt+p"
 }
