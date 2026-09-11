@@ -1,0 +1,19 @@
+perl -CS -e '
+my @t = (
+  [0x41,    "ASCII A (baseline)"],
+  [0xF07B,  "folder"],
+  [0xF07C,  "open folder"],
+  [0xE0A0,  "git branch"],
+  [0xE0B0,  "powerline split"],
+  [0xF00C,  "check"],
+  [0xF00D,  "cross"],
+  [0xF121,  "code tag"],
+  [0xF1D8,  "arrow right"],
+  [0xF09B,  "github cat"],
+  [0xF015,  "home"],
+  [0xF017,  "clock"],
+);
+printf "%-16s %-8s %s\n", "GLYPH", "CODEPOINT", "EXPECTED";
+printf "%s\n", "-" x 46;
+for (@t) { printf "%-16s U+%04X    %s\n", chr($_->[0]), $_->[0], $_->[1]; }
+'
