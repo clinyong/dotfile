@@ -139,6 +139,13 @@ export PATH="/Users/leo/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
+# mbx (mr-boxington Cargo cache shim)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PATH="$HOME/Library/Application Support/mbx/bin:$PATH"
+else
+  export PATH="${XDG_DATA_HOME:-$HOME/.local/share}/mbx/bin:$PATH"
+fi
+
 # Local command shims override globally installed commands when needed.
 export PATH="$HOME/bin:$PATH"
 

@@ -47,12 +47,19 @@ ln -sfn "$DOTFILES_DIR/pi/settings.json" "$HOME/.pi/agent/settings.json"
 ln -sfn "$DOTFILES_DIR/pi/keybindings.json" "$HOME/.pi/agent/keybindings.json"
 ln -sfn "$DOTFILES_DIR/pi/shell-env.sh" "$HOME/.pi/agent/shell-env.sh"
 
-echo "==> Installing nvim via mise..."
+echo "==> Linking mise config..."
+mkdir -p "$HOME/.config/mise"
+ln -sfn "$DOTFILES_DIR/mise/config.toml" "$HOME/.config/mise/config.toml"
+
+echo "==> Installing tools via mise..."
 if command -v mise &>/dev/null; then
-    mise use -g neovim@latest
     mise install
+    if mise which mbx &>/dev/null; then
+        echo "==> Setting up mr-boxington (mbx)..."
+        mise exec -- mbx setup --yes 2>/dev/null || true
+    fi
 else
-    echo "mise 未安装,跳过 neovim 安装(请先安装 mise 以管理 nvim)"
+    echo "mise 未安装, 跳过 mise tools 安装"
 fi
 
 echo "==> Linking nvim config..."

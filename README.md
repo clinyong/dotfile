@@ -21,6 +21,7 @@ My zsh configuration using [Zim Framework](https://github.com/zimfw/zimfw) and [
 | `ghostty/config` | Ghostty configuration (Gruvbox Light Hard / Dark) |
 | `nvim/` | Neovim configuration (lazy.nvim, Gruvbox Light Hard / Dark) |
 | `lazygit/config.yml` | LazyGit configuration using the Ghostty Gruvbox palette |
+| `mise/config.toml` | Mise tool configuration (neovim, rust, mr-boxington) |
 | `herdr/config.toml` | Herdr workspace configuration |
 | `pi/settings.json` | Pi defaults and pinned package sources |
 | `pi/keybindings.json` | Pi keybindings |
@@ -95,8 +96,12 @@ pi install npm:pi-hermes-memory@0.9.4
 pi install npm:pi-web-access@0.19.0
 pi install npm:pi-agent-browser-native@0.3.0
 
-# Install nvim via mise (assumes mise is already installed)
-mise use -g neovim@latest && mise install
+# Install tools via mise (neovim, rust, mr-boxington)
+mkdir -p ~/.config/mise
+ln -sfn ~/dotfiles/mise/config.toml ~/.config/mise/config.toml
+mise install
+mise exec -- mbx setup --yes
+
 ln -sfn ~/dotfiles/nvim ~/.config/nvim
 
 # Link LazyGit config (LG_CONFIG_FILE is exported by .zshrc)

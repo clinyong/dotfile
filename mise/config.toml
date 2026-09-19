@@ -1,0 +1,4 @@
+[tools]
+mr-boxington = "latest"
+neovim = "latest"
+rust = { version = "latest", mr_boxington = true }

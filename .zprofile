@@ -14,6 +14,13 @@ fi
 # mise: 让非交互登录 shell 也能找到 mise 管理的命令(node/pi 等)
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
+# mbx (mr-boxington Cargo cache shim)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PATH="$HOME/Library/Application Support/mbx/bin:$PATH"
+else
+  export PATH="${XDG_DATA_HOME:-$HOME/.local/share}/mbx/bin:$PATH"
+fi
+
 
 # Added by Antigravity CLI installer
 export PATH="/Users/leo/.local/bin:$PATH"
