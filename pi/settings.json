@@ -10,7 +10,9 @@
     "npm:pi-observational-memory",
     "https://github.com/cathrynlavery/diagram-design",
     "npm:@tintinweb/pi-subagents",
-    "../../my-projects/pi-matt-skills"
+    "../../my-projects/pi-matt-skills",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-mcp-adapter"
   ],
   "observational-memory": {
     "compactAfterTokensMode": "ratio",
